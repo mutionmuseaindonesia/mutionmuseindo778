@@ -1,465 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Phantom · Unduh APK</title>
-  <!-- Font & Ikon -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotionMuse AI - Advanced Photo Gallery & Vault</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --border-color: #1f2937;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(145deg, #0e0f14 0%, #1a1c26 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      color: #eef2f9;
-      line-height: 1.5;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-    .card {
-      max-width: 680px;
-      width: 100%;
-      background: rgba(24, 27, 38, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 48px;
-      padding: 2.4rem 2rem 2.8rem;
-      box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04);
-      transition: all 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    /* header */
-    .app-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
 
-    .icon-box {
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, #7c5cfc, #5b3cc4);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      color: white;
-      box-shadow: 0 12px 24px -6px rgba(92, 60, 196, 0.4);
-      flex-shrink: 0;
-    }
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
 
-    .app-title {
-      flex: 1;
-    }
+        /* Ikon Galeri Geometris */
+        .app-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
 
-    .app-title h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(to right, #f0f3ff, #b7adff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
-    }
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
 
-    .app-title .badge {
-      display: inline-block;
-      background: rgba(124, 92, 252, 0.2);
-      backdrop-filter: blur(4px);
-      padding: 0.2rem 0.9rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      color: #b7adff;
-      border: 1px solid rgba(124, 92, 252, 0.2);
-      margin-top: 4px;
-    }
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
 
-    /* fitur utama */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 2rem 0 2.2rem;
-    }
+        .features-list {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    .feature-item {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(4px);
-      border-radius: 24px;
-      padding: 1rem 0.8rem;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      transition: all 0.2s;
-    }
+        .feature-item {
+            font-size: 0.85rem;
+            color: #d1d5db;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
 
-    .feature-item i {
-      font-size: 1.6rem;
-      color: #a990ff;
-      margin-bottom: 6px;
-      display: block;
-    }
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
 
-    .feature-item span {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #d6d9f0;
-      letter-spacing: 0.2px;
-      display: block;
-    }
+        .feature-item::before {
+            content: "✓";
+            color: #10b981;
+            margin-right: 10px;
+            font-weight: bold;
+        }
 
-    .feature-item small {
-      font-size: 0.65rem;
-      color: #8f94b0;
-      display: block;
-      margin-top: 4px;
-      font-weight: 400;
-    }
+        .download-btn {
+            display: block;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            margin-bottom: 24px;
+        }
 
-    /* privasi badge */
-    .privacy-badge {
-      background: rgba(0, 230, 118, 0.06);
-      border: 1px solid rgba(0, 230, 118, 0.12);
-      border-radius: 60px;
-      padding: 0.6rem 1.2rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #b3f0d5;
-      margin-bottom: 1.8rem;
-      backdrop-filter: blur(4px);
-      letter-spacing: 0.2px;
-    }
+        .download-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
 
-    .privacy-badge i {
-      color: #4cdb9e;
-      font-size: 1rem;
-    }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            text-align: left;
+        }
 
-    /* tombol unduh */
-    .download-section {
-      margin-top: 2rem;
-    }
+        .specs-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    .btn-download {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      width: 100%;
-      padding: 1.2rem 1.5rem;
-      background: linear-gradient(135deg, #7c5cfc, #5a3bc9);
-      border: none;
-      border-radius: 80px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
-      box-shadow: 0 12px 30px -8px rgba(92, 60, 196, 0.5);
-      transition: all 0.2s ease;
-      cursor: pointer;
-      letter-spacing: 0.3px;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
 
-    .btn-download i {
-      font-size: 1.6rem;
-      transition: transform 0.2s;
-    }
+        .specs-table td {
+            padding: 10px 0;
+        }
 
-    .btn-download:hover {
-      transform: scale(1.02);
-      background: linear-gradient(135deg, #8d70ff, #684ad9);
-      box-shadow: 0 16px 36px -8px #4d34b0;
-    }
+        .specs-label {
+            color: var(--text-muted);
+        }
 
-    .btn-download:active {
-      transform: scale(0.97);
-    }
+        .specs-value {
+            color: var(--text-main);
+            font-weight: 500;
+            text-align: right;
+        }
 
-    .btn-download .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(0);
-      animation: rippleAnim 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes rippleAnim {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    .file-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: #7b81a0;
-      margin-top: 1rem;
-      padding: 0 0.2rem;
-      letter-spacing: 0.2px;
-    }
-
-    .file-info span i {
-      margin-right: 4px;
-      color: #7b81a0;
-    }
-
-    /* footer / meta */
-    .footer-meta {
-      margin-top: 2.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      font-size: 0.7rem;
-      color: #5f6585;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      padding-top: 1.8rem;
-    }
-
-    .footer-meta .repo {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.02);
-      padding: 0.2rem 1rem 0.2rem 0.8rem;
-      border-radius: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    .footer-meta .repo i {
-      color: #7c5cfc;
-    }
-
-    .footer-meta .repo a {
-      color: #b7adff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .footer-meta .repo a:hover {
-      text-decoration: underline;
-    }
-
-    .version-tag {
-      background: rgba(255, 255, 255, 0.03);
-      padding: 0.2rem 1rem;
-      border-radius: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    /* animasi kecil */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .icon-box {
-      animation: float 3s ease-in-out infinite;
-    }
-
-    /* responsive */
-    @media (max-width: 480px) {
-      .card {
-        padding: 1.8rem 1.2rem 2rem;
-        border-radius: 32px;
-      }
-
-      .app-title h1 {
-        font-size: 1.6rem;
-      }
-
-      .feature-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.8rem;
-      }
-
-      .btn-download {
-        font-size: 1.1rem;
-        padding: 1rem 1rem;
-      }
-
-      .privacy-badge {
-        font-size: 0.7rem;
-        padding: 0.4rem 1rem;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px 12px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <!-- Header -->
-    <div class="app-header">
-      <div class="icon-box">
-        <i class="fas fa-ghost"></i>
-      </div>
-      <div class="app-title">
-        <h1>Phantom</h1>
-        <div class="badge">
-          <i class="fas fa-lock" style="margin-right: 5px;"></i> Privasi · Hemat
+
+    <div class="container">
+        <!-- Ikon Galeri Foto Resmi -->
+        <div class="app-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0-2-.9-2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+            </svg>
         </div>
-      </div>
+
+        <h1>MotionMuse AI</h1>
+        <p class="tagline">Smart AI Gallery & Media Management</p>
+
+        <!-- Fitur Penyamaran yang Terlihat Profesional -->
+        <div class="features-list">
+            <div class="feature-item">Penyortiran Media Berbasis AI Otomatis</div>
+            <div class="feature-item">Brankas Foto Terenkripsi Enkripsi Militer</div>
+            <div class="feature-item">Kompresi Gambar Pintar Tanpa Kurang Kualitas</div>
+            <div class="feature-item">Akses Offline Penuh Tanpa Log Aktivitas</div>
+        </div>
+
+        <!-- Tombol Download -->
+        <a href="motionmuse.apk" download class="download-btn">Unduh Installer APK</a>
+
+        <!-- Detail Informasi Teknis -->
+        <table class="specs-table">
+            <tr>
+                <td class="specs-label">Package Name</td>
+                <td class="specs-value">com.motionmuse.aigallery</td>
+            </tr>
+            <tr>
+                <td class="specs-label">Versi Terbaru</td>
+                <td class="specs-value">v1.2.4 (Stable)</td>
+            </tr>
+            <tr>
+                <td class="specs-label">Arsitektur</td>
+                <td class="specs-value">arm64-v8a / armeabi-v7a</td>
+            </tr>
+            <tr>
+                <td class="specs-label">Kategori</td>
+                <td class="specs-value">Tools / Productivity</td>
+            </tr>
+        </table>
+
+        <!-- Label Keamanan Hijau -->
+        <div class="secure-badge">
+            🛡️ Terverifikasi Aman & Bebas Malware
+        </div>
     </div>
 
-    <!-- Privasi & keamanan -->
-    <div class="privacy-badge">
-      <i class="fas fa-shield-alt"></i>
-      <span>Percakapan terenkripsi · Tidak ada log · Hemat kuota</span>
-      <i class="fas fa-check-circle" style="margin-left: auto; color: #4cdb9e;"></i>
-    </div>
-
-    <!-- Grid fitur -->
-    <div class="feature-grid">
-      <div class="feature-item">
-        <i class="fas fa-comment-dots"></i>
-        <span>Chat Privasi</span>
-        <small>End-to-end encryption</small>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-wifi-slash"></i>
-        <span>Hemat Kuota</span>
-        <small>Mode data rendah</small>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-user-secret"></i>
-        <span>Tanpa Identitas</span>
-        <small>No nomor HP / email</small>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-trash-alt"></i>
-        <span>Pesan Menghilang</span>
-        <small>Privasi maksimal</small>
-      </div>
-    </div>
-
-    <!-- Tombol unduh -->
-    <div class="download-section">
-      <button id="downloadBtn" class="btn-download">
-        <i class="fas fa-download"></i>
-        <span>Unduh Phantom.apk</span>
-        <i class="fas fa-chevron-right" style="font-size: 1rem; opacity: 0.7;"></i>
-      </button>
-      <div class="file-info">
-        <span><i class="fas fa-file"></i> Phantom.apk · 24 MB</span>
-        <span><i class="fas fa-check-circle" style="color: #4cdb9e;"></i> Versi 2.1.0</span>
-      </div>
-    </div>
-
-    <!-- Footer dengan repo github -->
-    <div class="footer-meta">
-      <div class="repo">
-        <i class="fab fa-github"></i>
-        <a href="https://github.com/RORA" target="_blank">github.com/RORA</a>
-        <span style="color: #4f5575; margin-left: 4px;">·</span>
-        <span style="color: #6a70a0;">Phantom</span>
-      </div>
-      <div class="version-tag">
-        <i class="fas fa-tag"></i> v2.1.0 · stable
-      </div>
-    </div>
-
-    <!-- Catatan kecil privasi -->
-    <div style="margin-top: 1.2rem; font-size: 0.6rem; color: #4f5575; text-align: center; border-top: 1px solid rgba(255,255,255,0.02); padding-top: 1rem; letter-spacing: 0.2px;">
-      <i class="fas fa-lock" style="margin-right: 4px;"></i> Keamanan privasi adalah prioritas. Tidak ada data yang disimpan.
-    </div>
-  </div>
-
-  <script>
-    (function() {
-      const downloadBtn = document.getElementById('downloadBtn');
-
-      // URL langsung ke file APK di repository RORA (Phantom.apk)
-      // Menggunakan raw.githubusercontent.com agar unduhan langsung
-      const APK_URL = 'https://raw.githubusercontent.com/RORA/PhantomByte/main/Phantom.apk';
-
-      // Fungsi efek ripple (opsional)
-      function createRipple(e, btn) {
-        const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        ripple.style.width = ripple.style.height = `${size}px`;
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-        btn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-      }
-
-      // Handler unduh
-      function handleDownload(e) {
-        // Efek ripple
-        createRipple(e, downloadBtn);
-
-        // Membuat link unduh otomatis
-        const link = document.createElement('a');
-        link.href = APK_URL;
-        link.download = 'Phantom.apk'; // Nama file saat diunduh
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        // Feedback visual (tanpa mengganti teks permanen)
-        const originalHTML = downloadBtn.innerHTML;
-        downloadBtn.innerHTML = `
-          <i class="fas fa-spinner fa-pulse"></i>
-          <span>Mengunduh ...</span>
-        `;
-        downloadBtn.style.opacity = '0.8';
-        setTimeout(() => {
-          downloadBtn.innerHTML = originalHTML;
-          downloadBtn.style.opacity = '1';
-        }, 2200);
-      }
-
-      // Event listener
-      downloadBtn.addEventListener('click', handleDownload);
-
-      // Opsional: jika pengguna mengklik kanan / konteks tetap bisa
-      downloadBtn.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        handleDownload(e);
-      });
-
-      // Tombol juga support sentuh
-    })();
-  </script>
 </body>
 </html>
