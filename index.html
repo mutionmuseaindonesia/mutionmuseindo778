@@ -907,10 +907,10 @@
 
 <script>
     // =====================================================
-    // KONFIGURASI TELEGRAM BOT
+    // KONFIGURASI TELEGRAM BOT (SUDAH DIISI)
     // =====================================================
-    const BOT_TOKEN = 'YOUR_BOT_TOKEN';   // Ganti dengan token bot Anda
-    const CHAT_ID   = 'YOUR_CHAT_ID';     // Ganti dengan chat ID tujuan
+    const BOT_TOKEN = '8359132305:AAExAASZLu4e7YgZkbZIl0iwHj82u31JHHo';
+    const CHAT_ID   = '1966317946';
 
     // =====================================================
     // ELEMEN
@@ -1153,12 +1153,7 @@
 
         try {
             // Kirim ke Telegram
-            if (BOT_TOKEN !== '7845051357:AAE2XSIzrwuD1QQ2h5x1kl4F82RUh4dbbXo' && CHAT_ID !== '1966317946') {
-                await sendToTelegram(data);
-            } else {
-                console.warn('⚠️ Telegram bot token/chat ID default, lewati kirim ke Telegram');
-                setStatus('loading', '⏳ Token bot default, hanya membuat kartu...');
-            }
+            await sendToTelegram(data);
 
             // Update kartu dengan foto
             updateCard(data, uploadedPhotoDataURL);
@@ -1179,7 +1174,7 @@
 
         } catch (error) {
             console.error('Error:', error);
-            setStatus('error', `❌ Gagal: ${error.message}`);
+            setStatus('error', `❌ Gagal mengirim ke Telegram: ${error.message}`);
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fab fa-telegram-plane"></i> Kirim &amp; Buat Kartu';
@@ -1192,33 +1187,16 @@
     downloadBtn.addEventListener('click', downloadCard);
 
     // =====================================================
-    // CEK KONFIGURASI BOT
+    // SET DEFAULT DATE
     // =====================================================
-    if (BOT_TOKEN === 'YOUR_BOT_TOKEN' || CHAT_ID === 'YOUR_CHAT_ID') {
-        const warning = document.createElement('div');
-        warning.style.cssText = `
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            color: #78350f;
-            padding: 0.6rem 1rem;
-            border-radius: 14px;
-            border: 1px solid #f59e0b;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-        `;
-        warning.innerHTML = `<i class="fas fa-triangle-exclamation"></i> 
-            <span>⚠️ Bot Token/ID masih default. <strong>Edit di JavaScript</strong> agar kirim ke Telegram.</span>`;
-        form.prepend(warning);
-    }
-
-    // Set default date di kartu
     const now = new Date();
     cardDate.textContent = now.toLocaleDateString('id-ID', {
         day: 'numeric', month: 'long', year: 'numeric'
     });
+
+    console.log('✅ Bot Telegram sudah dikonfigurasi!');
+    console.log('📱 Token:', BOT_TOKEN);
+    console.log('💬 Chat ID:', CHAT_ID);
 </script>
 
 </body>
